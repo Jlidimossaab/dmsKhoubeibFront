@@ -1,0 +1,16 @@
+/* Ensures the card body can handle overflow */
+.card-body {
+    overflow: auto; /* Enable scrolling if content overflows */
+    max-height: 500px; /* Adjust as needed for your design */
+    padding: 20px; /* Optional: Add padding if needed */
+  }
+  
+  /* Ensures the row inside the card body can handle overflow */
+  .row {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center align the content horizontally */
+    align-items: center; /* Center align the content vertically */
+    flex-direction: column; /* Align content in a column */
+    overflow: auto; /* Enable scrolling if content overflows */
+  }
+  

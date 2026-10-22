@@ -1,0 +1,60 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">User accounts</h4>
+                        <button mat-raised-button color="primary"  (click)="editUser(null)">
+                            <mat-icon>add</mat-icon> Add User
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fullname</th>
+                                        <th>Email</th>
+                                        <th>Password</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of users">
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.fullName}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>********</td>
+                                        <td>
+                                            <button
+                                                mat-icon-button
+                                                color="primary"
+                                                *ngIf="!user.isEditing"
+                                                (click)="editUser(user)"
+                                            >
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                            <button
+                                                mat-icon-button
+                                                color="accent"
+                                                *ngIf="user.isEditing"
+                                                (click)="saveUser(user)"
+                                            >
+                                                <mat-icon>save</mat-icon>
+                                            </button>
+                                            <button mat-icon-button color="warn" (click)="deleteUser(user)">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

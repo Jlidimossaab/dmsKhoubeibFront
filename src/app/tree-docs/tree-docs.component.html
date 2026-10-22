@@ -1,0 +1,50 @@
+<ul class="tree">
+  <ng-container *ngFor="let node of data">
+    <li *ngIf="node.isFolder">
+      <div class="folder-container">
+        <!-- Display span if not editing or not allowed to delete -->
+        <a (click)="node.isEditing = true" *ngIf="!node.isEditing || !node.isAllowedToDelete">
+          <img src="../../assets/img/folder.png" alt="Folder" class="icon" />
+          <span>{{ node.name }}</span>
+        </a>
+
+        <!-- Display input field only if editing and allowed to delete -->
+        <input *ngIf="node.isEditing && node.isAllowedToDelete" 
+               [(ngModel)]="node.name" 
+               (blur)="saveFolderName(node)" 
+               (keydown.enter)="saveFolderName(node)" />
+
+        <div class="add-btn-container">
+          <button class="btn add-btn" (click)="togglePopup(node)">+</button>
+          <div class="popup" [ngClass]="{'show': node.isPopupVisible}">
+            <img src="../../assets/img/folder.png" alt="Folder" class="popup-icon" (click)="addFolder(node)" />
+            <img src="../../assets/img/image.png" alt="File" class="popup-icon" (click)="addFile(node)" />
+          </div>
+        </div>
+
+        <!-- Delete button only if allowed to delete -->
+        <button *ngIf="node.isAllowedToDelete" class="btn delete-btn" (click)="deleteNode(node, null)">🗑️</button>
+      </div>
+
+      <!-- Recursive child nodes -->
+      <ul *ngIf="node.children" class="scrollable-container">
+        <app-tree-docs [data]="node.children" (deleteNode)="deleteNode($event, node)"></app-tree-docs>
+      </ul>
+    </li>
+
+    <li *ngIf="!node.isFolder">
+      <div class="file-container">
+        <a>
+          <img src="../../assets/img/image.png" alt="File" class="icon" />
+          <span>{{ node.name }}</span>
+        </a>
+        <div class="buttons-container">
+          <button class="btn download-btn" (click)="downloadDocument(node)" [disabled]="node.isAllowedToDelete">Download</button>
+          <button class="btn upload-btn" (click)="triggerFileUpload(node)">Upload</button>
+          <input type="file" #fileInput (change)="onFileSelected($event, node)" style="display: none;" />
+        </div>
+        <button *ngIf="node.isAllowedToDelete" class="btn delete-btn" (click)="deleteNode(node, null)">🗑️</button>
+      </div>
+    </li>
+  </ng-container>
+</ul>

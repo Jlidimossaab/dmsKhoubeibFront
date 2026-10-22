@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Edit User</h2>
+
+<mat-dialog-content>
+    <form #userForm="ngForm">
+        <!-- Email Field -->
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="data.email" name="email" type="email" required #email="ngModel" />
+        </mat-form-field>
+        <mat-error *ngIf="email.invalid && (email.dirty || submitted)" class="error-message">
+            Please enter a valid email address.
+        </mat-error>
+
+        <!-- Full Name Field -->
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <input matInput [(ngModel)]="data.fullName" name="fullName" type="text" required #fullName="ngModel" />
+        </mat-form-field>
+        <mat-error *ngIf="fullName.invalid && (fullName.dirty || submitted)" class="error-message">
+            Full name must be at least 3 characters.
+        </mat-error>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="data.password" name="password" type="password" required #password="ngModel" />
+        </mat-form-field>
+        <mat-error *ngIf="password.invalid && (password.dirty || submitted)" class="error-message">
+            Password must be at least 6 characters long.
+        </mat-error>
+
+        <!-- Confirm Password Field -->
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required
+                #confirmPasswordField="ngModel" />
+        </mat-form-field>
+        <mat-error *ngIf="confirmPasswordField.invalid && (confirmPasswordField.dirty || submitted)" class="error-message">
+            Passwords do not match.
+        </mat-error>
+    </form>
+
+    <!-- General Error Message -->
+    <div *ngIf="errors.length > 0 && submitted" class="error-message">
+        <p>Please correct the following errors:</p>
+        <ul>
+            <li *ngFor="let error of errors">{{ error.message }}</li>
+        </ul>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="userForm.invalid || errors.length > 0"
+        (click)="onConfirm(userForm)">
+        Confirm
+    </button>
+</mat-dialog-actions>

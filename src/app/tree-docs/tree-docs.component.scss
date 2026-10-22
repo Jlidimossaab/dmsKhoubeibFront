@@ -1,0 +1,317 @@
+/* General Styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Tree Structure Styles */
+.tree {
+  width: auto;
+  text-align: center;
+  margin: 0 auto;
+  overflow-x: auto; /* Allow horizontal scrolling for the entire tree */
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  transition: 0.5s;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tree li {
+  display: inline-table;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 10px;
+  transition: 0.5s;
+  white-space: nowrap; /* Prevent children from wrapping */
+}
+
+.tree li::before,
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 1px solid #ccc;
+  width: 50%;
+  height: 20px;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 1px solid #ccc;
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+  display: none;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: none;
+}
+
+.tree li:last-child::before {
+  border-right: 1px solid #ccc;
+  border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 1px solid #ccc;
+  width: 0;
+  height: 20px;
+}
+
+.tree li a {
+  border: 1px solid #ccc;
+  padding: 10px; /* Reduced padding for better alignment */
+  display: inline-flex; /* Use inline-flex to keep elements aligned properly */
+  align-items: center; /* Vertically center elements inside the link */
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.5s;
+  margin: 10px;
+}
+
+.tree li a img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+  border-radius: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.tree li a span {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #666;
+  padding: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+/* Button Styles */
+.buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.download-btn {
+  background-color: #4CAF50; /* Green */
+}
+
+.upload-btn {
+  background-color: #f44336; /* Red */
+}
+
+/* Hover Effects */
+.tree li a:hover,
+.tree li a:hover i,
+.tree li a:hover span,
+.tree li a:hover+ul li a {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
+}
+
+.tree li a:hover+ul li::after,
+.tree li a:hover+ul li::before,
+.tree li a:hover+ul::before,
+.tree li a:hover+ul ul::before {
+  border-color: #94a0b4;
+}
+
+/* Horizontal Scrolling */
+.scrollable-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Circular Add Button Style */
+.add-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #005f73;
+}
+
+/* Add Button Container Style for Popup */
+.add-btn-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Popup Styling */
+.popup {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  flex-direction: row;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+/* Show popup when class is applied */
+.popup.show {
+  display: flex;
+}
+
+/* Icons inside the popup */
+.popup-icon {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effects for icons */
+.popup-icon:hover {
+  transform: scale(1.2);
+}
+
+/* File Container Styles */
+.file-container {
+  display: column; /* Align children horizontally */
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: fit-content; /* Dynamically adjusts the width based on content */
+  max-width: 100%; /* Prevents container from exceeding its parent width */
+  white-space: nowrap; /* Prevents wrapping of the file name */
+  overflow: hidden; /* Hides any overflow content */
+  text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+}
+
+.file-container a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.file-container img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.file-container span {
+  color: #666;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #c62828;
+}
+
+/* Scroll-to-Bottom Button */
+.scroll-to-bottom-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.scroll-to-bottom-btn:hover {
+  background-color: #0056b3;
+}
